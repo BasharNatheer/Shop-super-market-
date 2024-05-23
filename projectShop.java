@@ -7,7 +7,7 @@ class Shop {
     String customerName;
     String productName;
     double price;
-    int productCount;
+    int quantity;
     int endingYear;
     int endingMonth;
     int endingDay;
@@ -22,8 +22,10 @@ public class ProjectShop {
 
     static int firstProductOfEachCustomer = 0;// لطباعة الفاتورة ابتداء من قيمة هذا المتغير عدا الزبون الاول من الصفر 
     static int lastProductOfEachCustomer = 0;// لطباعة الفاتورة انتهاء عند قيمة هذا المتغير
-    static int first = 0;//firstprod.... يتم اسناده للمتغير 
-    static int CountProduct;
+    static int first = 0;
+ //firstproductOfE.. يتم اسناده للمتغير 
+     static int CountProduct;
+     //عدد المنتجات التي يشتريها العميل
     static Scanner in = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -31,7 +33,7 @@ public class ProjectShop {
         int choice;
         do {
             System.out.println("1. Add a product \n"
-                    + "2. to see the product \n"
+                    + "2. to see all products \n"
                     + "3. sale   and   print the bell\n"
                     + "4. to print closer date\n"
                     + "5. to see the earning \n"
@@ -47,11 +49,10 @@ public class ProjectShop {
                     //     System.out.println(shop.length);
                     break;
                 case 2:
-                    printproduct();
+                    printproducts();
                     break;
                 case 3:
-                    bell = sale();                                   
-                    printBell(bell);
+                    bell = sale();                                                     printBell(bell);
                     break;
                 case 4:
                     closerDate();  // or we can use Temp to see the closer date
@@ -99,8 +100,8 @@ public class ProjectShop {
         s.productName = in.nextLine();
         System.out.print("Enter the price $ : ");
         s.price = in.nextDouble();
-        System.out.print("Enter count of the product you have : ");
-        s.productCount = in.nextInt();
+        System.out.print("Enter quantity of the product you have : ");
+        s.quantity = in.nextInt();
         System.out.print("Enter ending year : ");
         s.endingYear = in.nextInt();
         System.out.print("Enter ending month : ");
@@ -138,17 +139,17 @@ public class ProjectShop {
 
                     while (true) {
                         System.out.print("Enter count of " + newBell[CountProduct].productName + " : ");
-                        newBell[CountProduct].productCount = count = in.nextInt();
+                        newBell[CountProduct].quantity = count = in.nextInt();
                         in.nextLine();
 
-                        if (shop[index].productCount >= count) {
-                            shop[index].productCount -= count;
+                        if (shop[index].quantity >= count) {
+                            shop[index].quantity -= count;
                             newBell[CountProduct].price = count * shop[index].price;
                             // لجساب الإجمالي لكل زبون بمفرده
                             customer[customer.length - 1].price += newBell[CountProduct].price;
                             break;
                         }
-                        System.out.println("we just have " + shop[index].productCount);
+                        System.out.println("we just have " + shop[index].quantity);
                     }
 
                     bell = reSize(bell);
@@ -173,14 +174,11 @@ public class ProjectShop {
     }
 
     static void printBell(Shop[] bell) {
-        if (bell == null) {
-            System.out.println("\033[31mYou have not bought any thing yet !!\033[0m");
-        } else {
-            System.out.println("\033[31m____________________________________\033[0m");
-
-            for (int i = (customer.length - 1); i < customer.length; i++) {
-                System.out.println("customer : " + customer[i].customerName);
-            }
+              if (bell != null) {
+            System.out.println("\033[35m____________________________________\033[0m");
+     
+                System.out.println("customer : " + customer[customer.length - 1].customerName);
+      
 
             System.out.println("name   :  unit  :  price ");
 
@@ -189,12 +187,12 @@ public class ProjectShop {
                 firstProductOfEachCustomer = 0;
             }
             for (int i = firstProductOfEachCustomer; i < lastProductOfEachCustomer; i++) {
-                System.out.println((i + 1) + "|" + " " + bell[i].productName + "  :  " + bell[i].productCount + "  : " + bell[i].price + " $ ");
+                System.out.println((i + 1) + "|" + " " + bell[i].productName + "  :  " + bell[i].quantity + "  : " + bell[i].price + " $ ");
                 sum += bell[i].price;
             }
             System.out.println("total $ : " + sum);
-            System.out.println("\033[31m____________________________________\033[0m");
-        }
+            System.out.println("\033[35m____________________________________\033[0m");
+      }
     }
 
     static int search(String name) {
@@ -261,7 +259,7 @@ public class ProjectShop {
             System.out.println("\033[33m-------------------------\033[0m");
             System.out.print("Enter \"1\" to see all the earning of each customer \n\"any number to stop\" : ");
             if (in.nextByte() == 1) {
-                System.out.println("\033[31m");
+                System.out.println("\033[36m");
                 for (int i = 0; i < customer.length; i++) {
                     System.out.println("\"" + customer[i].customerName + "\" " + customer[i].price + " $");
 
@@ -272,7 +270,7 @@ public class ProjectShop {
         }
     }
 
-    public static void printproduct() {
+    public static void printproducts() {
         if (shop == null) {
             System.out.println("\033[31mThere is no product .\033[0m");
         } else {
@@ -281,11 +279,11 @@ public class ProjectShop {
             for (int i = 0; i < shop.length; i++) {
                 System.out.println((i + 1) + "| "
                         + shop[i].productName
-                        + "\t" + shop[i].productCount
+                        + "\t" + shop[i].quantity
                         + "\t" + shop[i].endingYear + "\\" + shop[i].endingMonth + "\\" + shop[i].endingDay
                         + "\t  " + shop[i].price + " $");
             }
-            System.out.printf("\033[%sm_______________________\033[0m \n", 33);
+            System.out.println("\033[%sm_______________________\033[0m ");
         }
     }
 }
