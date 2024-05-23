@@ -155,7 +155,7 @@ public class ProjectShop {
 
 					bell = reSize(bell);
 					bell[bell.length - 1] = newBell[CountProduct];
-					CountProduct++;// زيادة عدد المنتجات
+					CountProduct++;// زيادة عدد المنتجات التي يتم شراؤها
 					lastProductOfEachCustomer++;
 				} else {
 					System.out.println("this product is not exisit .");
@@ -203,7 +203,7 @@ public class ProjectShop {
 		}
 		return -1;
 	}
-
+	
 	static void closerDate() {
 		if (shop == null) {
 			System.out.println("\033[31mYou have not entered any product yet !! \033[0m");
@@ -215,6 +215,7 @@ public class ProjectShop {
 			System.out.print("Enter current day : ");
 			int currentDay = in.nextInt();
 			System.out.println();
+			int everyThingOk=0;
 			for (int i = 0; i < shop.length; i++) {
 				int months = shop[i].endingMonth - currentMonth;
 
@@ -232,7 +233,16 @@ public class ProjectShop {
 					if (months <= 4 & months >= 1) {
 						System.out.println(shop[i].productName + " | has " + months + " months");
 					}
+					else{
+						everyThingOk++;
+						}
 				}
+				else{
+					everyThingOk++;
+				}
+			}
+			if(everyThingOk==shop.length){
+					System.out.println("\033[32mEvery thing is ok  \033[0m");
 			}
 			in.nextLine();
 			System.out.println();
@@ -240,7 +250,7 @@ public class ProjectShop {
 	}
 
 	public static void earning() {
-
+		
 		//لا يكرر اسماء الزبائن في الفاتورة  & ينقص الكمية من جميع المشتريين
 		double earnSum = 0.0;
 		if (customer == null) {
