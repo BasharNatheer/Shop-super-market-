@@ -17,7 +17,7 @@ class Shop {
 public class ProjectShop {
 
 	static Shop[] shop = null;
-	static Shop[] bell = null;
+	static Shop[] bill = null;
 	static Shop[] customer = null;
 
 	static int firstProductOfEachCustomer = 0;// لطباعة الفاتورة ابتداء من قيمة هذا المتغير عدا الزبون الاول من الصفر
@@ -52,8 +52,8 @@ public class ProjectShop {
 				printproducts();
 				break;
 			case 3:
-				bell = sale();
-				printBell(bell);
+				bill = sale();
+				printBill(bill);
 				break;
 			case 4:
 				closerDate();  // or we can use Temp to see the closer date
@@ -118,7 +118,7 @@ public class ProjectShop {
 		if (shop == null) {
 			System.out.println("\033[31mYou have to add product first !! \033[0m");
 		} else {
-			Shop[] newBell = null;
+			Shop[] newBill = null;
 			System.out.print("Enter the customer name : ");
 			customer = reSize(customer);
 			customer[customer.length - 1] = new Shop();
@@ -128,33 +128,33 @@ public class ProjectShop {
 			CountProduct = 0;
 			while (true) {
 
-				newBell = reSize(newBell);
+				newBill = reSize(newBill);
 				System.out.print("Enter product " + (CountProduct + 1) + " : ");
-				newBell[CountProduct] = new Shop();
+				newBill[CountProduct] = new Shop();
 
 				String name = in.nextLine();
 				int index;
 				if ((index = search(name)) != -1) {
 					int count;
-					newBell[CountProduct].productName = name;
+					newBill[CountProduct].productName = name;
 
 					while (true) {
-						System.out.print("Enter count of " + newBell[CountProduct].productName + " : ");
-						newBell[CountProduct].quantity = count = in.nextInt();
+						System.out.print("Enter count of " + newBill[CountProduct].productName + " : ");
+						newBill[CountProduct].quantity = count = in.nextInt();
 						in.nextLine();
 
 						if (shop[index].quantity >= count) {
 							shop[index].quantity -= count;
-							newBell[CountProduct].price = count * shop[index].price;
+							newBill[CountProduct].price = count * shop[index].price;
 							// لجساب الإجمالي لكل زبون بمفرده
-							customer[customer.length - 1].price += newBell[CountProduct].price;
+							customer[customer.length - 1].price += newBill[CountProduct].price;
 							break;
 						}
 						System.out.println("we just have " + shop[index].quantity);
 					}
 
-					bell = reSize(bell);
-					bell[bell.length - 1] = newBell[CountProduct];
+					bill = reSize(bill);
+					bill[bill.length - 1] = newBill[CountProduct];
 					CountProduct++;// زيادة عدد المنتجات التي يتم شراؤها
 					lastProductOfEachCustomer++;
 				} else {
@@ -170,11 +170,11 @@ public class ProjectShop {
 			in.nextLine();
 		}
 		first = lastProductOfEachCustomer;
-		return bell;
+		return bill;
 
 	}
 
-	static void printBell(Shop[] bell) {
+	static void printBill(Shop[] bell) {
 		if (bell != null) {
 			System.out.println("\033[35m____________________________________\033[0m");
 
@@ -256,8 +256,8 @@ public class ProjectShop {
 		if (customer == null) {
 			System.out.println("\033[31mYou have not sold any thing !! \033[0m");
 		} else {
-			for (int i = 0; i < bell.length; i++) {
-				earnSum += bell[i].price;
+			for (int i = 0; i < bill.length; i++) {
+				earnSum += bill[i].price;
 			}
 			System.out.println("\033[33m-------------------------\033[32m");
 			System.out.println("The earning : " + earnSum + "  $$$");
