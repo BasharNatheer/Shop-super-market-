@@ -46,7 +46,6 @@ public class ProjectShop {
 			case 1:
 				shop = reSize();
 				shop = addProduct();
-				//     System.out.println(shop.length);
 				break;
 			case 2:
 				printproducts();
