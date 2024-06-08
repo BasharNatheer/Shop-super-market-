@@ -56,7 +56,7 @@ public class ProjectShop {
 				printBill(bill);
 				break;
 			case 4:
-				closerDate();  // or we can use Temp to see the closer date
+				closerDate();
 				break;
 			case 5:
 				earning();
@@ -69,7 +69,6 @@ public class ProjectShop {
 				break;
 			}
 			if (choice != 0) {
-				// لإعادة طباعة القائمة (لرؤية المخرج بوضوح )
 				System.out.print("Enter any key to get back (Enter) : ");
 				in.nextLine();
 			}
@@ -146,8 +145,8 @@ public class ProjectShop {
 						if (shop[index].quantity >= count) {
 							shop[index].quantity -= count;
 							newBill[CountProduct].price = count * shop[index].price;
-							// لجساب الإجمالي لكل زبون بمفرده
 							customer[customer.length - 1].price += newBill[CountProduct].price;
+							// لجساب الإجمالي لكل زبون بمفرده
 							break;
 						}
 						System.out.println("we just have " + shop[index].quantity);
@@ -155,7 +154,7 @@ public class ProjectShop {
 
 					bill = reSize(bill);
 					bill[bill.length - 1] = newBill[CountProduct];
-					CountProduct++;// زيادة عدد المنتجات التي يتم شراؤها
+					CountProduct++;
 					lastProductOfEachCustomer++;
 				} else {
 					System.out.println("this product is not exisit .");
@@ -250,8 +249,6 @@ public class ProjectShop {
 	}
 
 	public static void earning() {
-		
-		//لا يكرر اسماء الزبائن في الفاتورة  & ينقص الكمية من جميع المشتريين
 		double earnSum = 0.0;
 		if (customer == null) {
 			System.out.println("\033[31mYou have not sold any thing !! \033[0m");
